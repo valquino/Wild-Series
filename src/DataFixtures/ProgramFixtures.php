@@ -36,6 +36,16 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             'synopsis'  => 'Un magicien a lunette veut sauver le monde des sorciers de Lord Voldemort', 
             'category'  => 'category_Fantastique'
         ],
+        [
+            'title'     => 'Freddy, les griffes de la nuit', 
+            'synopsis'  => 'Dormir c\est mourir. Prenez garde...', 
+            'category'  => 'category_Horreur'
+        ],
+        [
+            'title'     => 'Massacre à la tronçonneuse', 
+            'synopsis'  => 'Dans la paisible ville de Cristal Lake, un psychopate fou muni d\'une machette et d\'un masque sème la terreur', 
+            'category'  => 'category_Horreur'
+        ],
     ];
 
     public function load(ObjectManager $manager)
