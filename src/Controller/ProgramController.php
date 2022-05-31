@@ -58,7 +58,7 @@ class ProgramController extends AbstractController
     public function showSeason(int $programId, int $seasonId)
     {
         $program = $this->programRepository->findOneBy(['id' => $programId]);
-        $season = $this->seasonRepository->findOneBy(['id' => $seasonId]);
+        $season = $this->seasonRepository->findOneBy(['number' => $seasonId]);
         $episodes = $this->episodeRepository->findBy(['season' => $seasonId]);
 
         // if (!$episodes) {
