@@ -36,9 +36,9 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/program/{id<\d+>}', methods: ['GET'], name: 'program_show')]
-    public function show(int $id):Response
+    public function show(Program $program):Response
     {
-        $program = $this->programRepository->find($id);
+        // $program = $this->programRepository->find($id);
         // same as $program = $programRepository->findOneById($id);
         // same as $program = $programRepository->find($id);
         $seasons = $this->seasonRepository->findBy(['program' => $program]);
@@ -55,11 +55,13 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/program/{programId<\d+>}/seasons/{seasonId<\d+>}', methods: ['GET'], name: 'program_season_show')]
-    public function showSeason(int $programId, int $seasonId)
+    #[Entity('program', options: ['id' => 'programId'])]
+    #[Entity('comment', options: ['id' => 'seasonId'])]
+    public function showSeason(Program $program, Season $season)
     {
-        $program = $this->programRepository->findOneBy(['id' => $programId]);
-        $season = $this->seasonRepository->findOneBy(['number' => $seasonId]);
-        $episodes = $this->episodeRepository->findBy(['season' => $seasonId]);
+        // $program = $this->programRepository->findOneBy(['id' => $programId]);
+        // $season = $this->seasonRepository->findOneBy(['number' => $seasonId]);
+        // $episodes = $this->episodeRepository->findBy(['season' => $seasonId]);
 
         // if (!$episodes) {
         //     throw $this->createNotFoundException(
@@ -68,6 +70,18 @@ class ProgramController extends AbstractController
         // }
 
         return $this->render('program/season_show.html.twig', [
+            'program'   => $program,
+            'season'    => $season,
+            //'episodes'  => $episodes,
+        ]);
+    }
+
+    #[Route('/program/{programId}/season/{seasonId}/episode/{episodeId}', methods: ['GET'], name: 'program_episode_show')]
+    #[Entity('program', options: ['id' => 'programId'])]
+    #[Entity('comment', options: ['id' => 'seasonId'])]
+    #[Entity('episode', options: ['id' => 'episodeId'])]
+    public function showEpisode(Program $program, Season $season, Episode $episode){
+        return $this->render('program/episode_show.html.twig', [
             'program'   => $program,
             'season'    => $season,
             'episodes'  => $episodes,
